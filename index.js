@@ -14,3 +14,7 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);
 });
+
+app.get('/administrador-view.html', (req, res) => {
+  res.sendFile(__dirname + '/views/administrador-view.html');
+});
