@@ -34,7 +34,7 @@
     <!-- Sidebar -->
     <div class="sidebar">
         <div class="text-center">
-            <img src="logo.png" alt="Capibara Logo" class="img-fluid">
+            <img src="/Jabys/views/images/logo.png" alt="Capibara Logo" class="img-fluid">
         </div>
         <nav class="nav flex-column mt-4">
             <a class="nav-link" href="#">Inicio</a>
@@ -50,8 +50,8 @@
     <!-- Top Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top" style="margin-left: 200px;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
-                <img src="logo.png" alt="Capibara Logo">
+            <a class="navbar-brand" href="/Jabys/views/css/styles.css">
+                <img src="/Jabys/views/images/logo.png" alt="Capibara Logo">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -82,8 +82,94 @@
     </nav>
 
     <!-- Content -->
-    <div class="content">
+<div class="content">
         <!-- Aquí va el contenido principal -->
+        <div class="container margin ">
+
+    
+    <h2>CRUD de Productos</h2>
+        
+            <!-- Formulario para agregar un nuevo producto -->
+            <form id="addForm">
+                <div class="form-group">
+                    <label for="productName">Nombre del Producto:</label>
+                    <input type="text" class="form-control" id="productName" name="productName" required>
+                </div>
+                <div class="form-group">
+                    <label for="productPrice">Precio:</label>
+                    <input type="number" class="form-control" id="productPrice" name="productPrice" min="0" step="0.01" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Agregar Producto</button>
+            </form>
+        
+            <!-- Tabla para mostrar los productos existentes -->
+            <table class="table mt-4">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                    </tr>
+                </thead>
+                <tbody id="productTableBody">
+                    <!-- Aquí se cargarán dinámicamente los productos -->
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Agregar los enlaces a los archivos JS de Bootstrap y jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        
+        <script>
+            // Código JavaScript para manejar las operaciones CRUD
+        
+        // Función para agregar un nuevo producto con confirmación
+        document.getElementById("addForm").addEventListener("submit", function(event) {
+                // Evitar que el formulario se envíe automáticamente
+                event.preventDefault();
+        
+                // Obtener los valores del formulario
+                var productName = document.getElementById("productName").value;
+                var productPrice = parseFloat(document.getElementById("productPrice").value);
+        
+                // Validar los valores (puedes agregar más validaciones aquí)
+        
+                // Crear un objeto para representar el nuevo producto
+                var newProduct = {
+                    name: productName,
+                    price: productPrice
+                };
+        
+                // Pedir confirmación al usuario antes de agregar el producto
+                if (confirm("¿Estás seguro de que deseas agregar este producto?")) {
+                    // Aquí puedes enviar el nuevo producto al servidor o simplemente añadirlo a la tabla
+                    // Por simplicidad, simplemente lo añadiremos a la tabla
+        
+                    // Añadir una nueva fila a la tabla
+                    var tableBody = document.getElementById("productTableBody");
+                    var newRow = tableBody.insertRow();
+                    newRow.innerHTML = "<td>ID</td><td>" + newProduct.name + "</td><td>" + newProduct.price.toFixed(2) + "</td><td><button class='btn btn-danger delete-btn'>Eliminar</button></td>";
+        
+                    // Limpiar el formulario
+                    document.getElementById("addForm").reset();
+                }
+            });
+        
+            // Evento para eliminar un producto con confirmación
+            document.getElementById("productTableBody").addEventListener("click", function(event) {
+                if (event.target && event.target.className.includes("delete-btn")) {
+                    // Pedir confirmación al usuario antes de eliminar el producto
+                    if (confirm("¿Estás seguro de que deseas eliminar este producto?")) {
+                        var row = event.target.parentNode.parentNode;
+                        row.parentNode.removeChild(row);
+                    }
+                }
+            });
+        </script>
+        
+        </body>
     </div>
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
