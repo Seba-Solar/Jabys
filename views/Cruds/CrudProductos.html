@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capibara - Muebles de Diseño</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <style>
+        body {
+            overflow-x: hidden;
+        }
+        .sidebar {
+            height: 100vh;
+            position: fixed;
+            width: 200px;
+            background-color: #f8f9fa;
+            padding-top: 20px;
+        }
+        .sidebar .nav-link {
+            font-size: 16px;
+            padding: 10px 15px;
+        }
+        .content {
+            margin-left: 220px;
+            padding: 20px;
+        }
+        .navbar-brand img {
+            height: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="text-center">
+            <img src="/Jabys/views/images/logo.png" alt="Capibara Logo" class="img-fluid">
+        </div>
+        <nav class="nav flex-column mt-4">
+            <a class="nav-link" href="/Jabys/views/index.html">Inicio</a>
+            <a class="nav-link" href="/Jabys/views/Cruds/CrudProductos.html">Producto</a>
+            <a class="nav-link" href="#">Repuestos</a>
+            <a class="nav-link" href="/Jabys/views/Cruds/CrudInsumos.html">Insumos</a>
+            <a class="nav-link" href="#">Solicitudes</a>
+            <a class="nav-link" href="#">Ventas</a>
+            <a class="nav-link" href="#">Proveedores</a>
+        </nav>
+    </div>
+
+    <!-- Content -->
+    <div class="content">
+        <!-- Aquí va el contenido principal -->
+        <div class="container">
+
+            <h2>Gestion de Productos</h2>
+
+            <!-- Formulario para agregar un nuevo producto -->
+            <form id="addForm">
+                <div class="form-group">
+                    <label for="productName">Nombre del Producto:</label>
+                    <input type="text" class="form-control" id="productName" name="productName" required>
+                </div>
+                <div class="form-group">
+                    <label for="productPrice">Precio:</label>
+                    <input type="number" class="form-control" id="productPrice" name="productPrice" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="productQuantity">Cantidad:</label>
+                    <input type="number" class="form-control" id="productQuantity" name="productQuantity" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="productDescription">Descripción:</label>
+                    <input type="text" class="form-control" id="productDescription" name="productDescription" required>
+                </div>
+                <div class="form-group">
+                    <label for="productWidth">Ancho:</label>
+                    <input type="number" class="form-control" id="productWidth" name="productWidth" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="productHeight">Alto:</label>
+                    <input type="number" class="form-control" id="productHeight" name="productHeight" min="0" step="0.01" required>
+                </div>
+                <div class="form-group">
+                    <label for="productLength">Largo:</label>
+                    <input type="number" class="form-control" id="productLength" name="productLength" min="0" step="0.01" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Agregar Producto</button>
+            </form>
+
+            <!-- Tabla para mostrar los productos existentes -->
+            <table class="table mt-4">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Descripción</th>
+                        <th>Alto</th>
+                        <th>Ancho</th>
+                        <th>Largo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="productTableBody">
+                    <!-- Aquí se cargarán dinámicamente los productos -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Agregar los enlaces a los archivos JS de Bootstrap y jQuery -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+
+        <script>
+            // Código JavaScript para manejar las operaciones CRUD
+
+            // Función para agregar un nuevo producto con confirmación
+            document.getElementById("addForm").addEventListener("submit", function(event) {
+                // Evitar que el formulario se envíe automáticamente
+                event.preventDefault();
+
+                // Obtener los valores del formulario
+                var productName = document.getElementById("productName").value;
+                var productPrice = parseFloat(document.getElementById("productPrice").value);
+                var productQuantity = parseFloat(document.getElementById("productQuantity").value);
+                var productDescription = document.getElementById("productDescription").value;
+                var productWidth = parseFloat(document.getElementById("productWidth").value);
+                var productHeight = parseFloat(document.getElementById("productHeight").value);
+                var productLength = parseFloat(document.getElementById("productLength").value);
+
+                // Validar los valores (puedes agregar más validaciones aquí)
+
+                // Crear un objeto para representar el nuevo producto
+                var newProduct = {
+                    name: productName,
+                    price: productPrice,
+                    quantity: productQuantity,
+                    description: productDescription,
+                    width: productWidth,
+                    height: productHeight,
+                    length: productLength
+                };
+
+                // Pedir confirmación al usuario antes de agregar el producto
+                if (confirm("¿Estás seguro de que deseas agregar este producto?")) {
+                    // Añadir una nueva fila a la tabla
+                    var tableBody = document.getElementById("productTableBody");
+                    var newRow = tableBody.insertRow();
+                    newRow.innerHTML = "<td>ID</td><td>" + newProduct.name + "</td><td>" + newProduct.price.toFixed(2) + "</td><td>" + newProduct.quantity + "</td><td>" + newProduct.description + "</td><td>" + newProduct.height + "</td><td>" + newProduct.width + "</td><td>" + newProduct.length + "</td><td><button class='btn btn-danger delete-btn'>Eliminar</button></td>";
+
+                    // Limpiar el formulario
+                    document.getElementById("addForm").reset();
+                }
+            });
+
+            // Evento para eliminar un producto con confirmación
+            document.getElementById("productTableBody").addEventListener("click", function(event) {
+                if (event.target && event.target.className.includes("delete-btn")) {
+                    // Pedir confirmación al usuario antes de eliminar el producto
+                    if (confirm("¿Estás seguro de que deseas eliminar este producto?")) {
+                        var row = event.target.parentNode.parentNode;
+                        row.parentNode.removeChild(row);
+                    }
+                }
+            });
+        </script>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
