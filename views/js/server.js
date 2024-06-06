@@ -28,14 +28,16 @@ db.connect((err) => {
 });
 
 // Crea un endpoint para obtener los datos
-app.get('/datos', (req, res) => {
-  const query = 'SELECT * FROM productos';
+app.get('/get-data', (req, res) => {
+  const query = 'SELECT * FROM producto';
   db.query(query, (err, results) => {
-    if (err) {
+    if (err) {  
       console.error(err);
       res.status(500).send({ message: 'Error al obtener datos' });
+      console.log(req.query);
     } else {
       res.send(results);
+      
     }
   });
 });
@@ -48,7 +50,7 @@ app.get('/crud-producto' ,(req,res) =>{
 app.get('/crud-insumos',(req, res)=>{
   res.sendFile(path.join(__dirname, '../Cruds/CrudInsumos.html'));
 });
-
+//app.get('/')
 // ----    ROUTING ---------     //
 
 // --------------------- CRUD PRODUCTOS --------------------- //
