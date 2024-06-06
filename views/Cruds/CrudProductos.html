@@ -55,36 +55,35 @@
             <h2>Gestion de Productos</h2>
 
             <!-- Formulario para agregar un nuevo producto -->
-            <form id="addForm">
+            <form  action="/insert" method="POST" id="addForm">
                 <div class="form-group">
                     <label for="productName">Nombre del Producto:</label>
-                    <input type="text" class="form-control" id="productName" name="productName" required>
+                    <input type="text" class="form-control" id="productName" name="productName" >
                 </div>
                 <div class="form-group">
                     <label for="productPrice">Precio:</label>
-                    <input type="number" class="form-control" id="productPrice" name="productPrice" min="0" step="0.01" required>
+                    <input type="text" class="form-control" id="productPrice" name="productPrice" >
                 </div>
                 <div class="form-group">
                     <label for="productQuantity">Cantidad:</label>
-                    <input type="number" class="form-control" id="productQuantity" name="productQuantity" min="0" step="0.01" required>
+                    <input type="text" class="form-control" id="productQuantity" name="productQuantity" >
                 </div>
                 <div class="form-group">
                     <label for="productDescription">Descripción:</label>
-                    <input type="text" class="form-control" id="productDescription" name="productDescription" required>
+                    <input type="text" class="form-control" id="productDescription" name="productDescription" >
                 </div>
                 <div class="form-group">
                     <label for="productWidth">Ancho:</label>
-                    <input type="number" class="form-control" id="productWidth" name="productWidth" min="0" step="0.01" required>
+                    <input type="text" class="form-control" id="productWidth" name="productWidth" >
                 </div>
                 <div class="form-group">
                     <label for="productHeight">Alto:</label>
-                    <input type="number" class="form-control" id="productHeight" name="productHeight" min="0" step="0.01" required>
+                    <input type="text" class="form-control" id="productHeight" name="productHeight">
                 </div>
                 <div class="form-group">
                     <label for="productLength">Largo:</label>
-                    <input type="number" class="form-control" id="productLength" name="productLength" min="0" step="0.01" required>
+                    <input type="text" class="form-control" id="productLength" name="productLength">
                 </div>
-
                 <button type="submit" class="btn btn-primary">Agregar Producto</button>
             </form>
 
