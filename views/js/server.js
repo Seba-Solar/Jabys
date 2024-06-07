@@ -3,6 +3,7 @@ const app = express();
 const mysql = require('mysql');
 const path = require('path');
 const bodyParser = require('body-parser');
+const port = 3000;
 
 // Configura body-parser para manejar datos JSON
 app.use(bodyParser.json());
@@ -123,6 +124,6 @@ app.post('/insert-insumos',(req,res)=>{
 
 // --------------------- CRUD INSUMOS --------------------- //
 // Inicia el servidor
-app.listen(3000, () => {
-  console.log('Servidor iniciado en el puerto 3000');
+app.listen(port, () => {
+  console.log(`Servidor escuchando en http://localhost:${port}`);
 });
