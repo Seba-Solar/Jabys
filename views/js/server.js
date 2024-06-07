@@ -99,6 +99,7 @@ app.post('/insert', (req, res) => {
 
 
 
+
 // --------------------- CRUD INSUMOS --------------------- //
 
 app.post('/insert-insumos',(req,res)=>{

@@ -121,6 +121,7 @@
                                 <td>${product.nombre}</td>
                                 <td>${product.unidad_medida}</td>
                                 <td>${product.cantidad}</td>
+                                
                                 <td><button class="btn btn-primary">Acción</button></td>
                             `;
                             
@@ -136,39 +137,8 @@
                 });
             });
         </script>
-        <!-- <script>
-            // Código JavaScript para manejar las operaciones CRUD
-
-            // Función para agregar un nuevo producto con confirmación
-            document.getElementById("addForm").addEventListener("submit", function(event) {
-                // Evitar que el formulario se envíe automáticamente
-                event.preventDefault();
-
-                // Obtener los valores del formulario
-                var productName = document.getElementById("productName").value;
-                var productQuantity = parseFloat(document.getElementById("productQuantity").value);
-
-                // Validar los valores (puedes agregar más validaciones aquí)
-
-                // Crear un objeto para representar el nuevo producto
-                var newProduct = {
-                    name: productName,
-                    quantity: productQuantity
-                };
-
-                // Pedir confirmación al usuario antes de agregar el producto
-                if (confirm("¿Estás seguro de que deseas agregar este producto?")) {
-                    // Añadir una nueva fila a la tabla
-                    var tableBody = document.getElementById("productTableBody");
-                    var newRow = tableBody.insertRow();
-                    newRow.innerHTML = "<td>ID</td><td>" + newProduct.name + "</td><td>" + newProduct.price.toFixed(2) + "</td><td>" + newProduct.quantity + "</td><td>" + newProduct.description + "</td><td>" + newProduct.height + "</td><td>" + newProduct.width + "</td><td>" + newProduct.length + "</td><td><button class='btn btn-danger delete-btn'>Eliminar</button></td>";
-
-                    // Limpiar el formulario
-                    document.getElementById("addForm").reset();
-                }
-            });
-
-            // Evento para eliminar un producto con confirmación
+        <script>
+            //Evento para eliminar un producto con confirmación
             document.getElementById("productTableBody").addEventListener("click", function(event) {
                 if (event.target && event.target.className.includes("delete-btn")) {
                     // Pedir confirmación al usuario antes de eliminar el producto
@@ -178,7 +148,7 @@
                     }
                 }
             });
-        </script> -->
+        </script>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
