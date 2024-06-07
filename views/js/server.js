@@ -10,6 +10,9 @@ app.use(bodyParser.json());
 //URL ENCODE PARA LOS PROGRAMAS QUE UTILIZAN FORMULARIOS. 
 app.use(express.urlencoded({ extended: true })); // Middleware para parsear los datos del formulario
 
+// Configura el directorio estático para servir archivos (como imágenes)
+app.use(express.static(path.join(__dirname, 'jabys')));
+
 // Crea una conexión a la base de datos
 let db = mysql.createConnection({
   host: 'localhost',
@@ -42,12 +45,27 @@ app.get('/get-data', (req, res) => {
   });
 });
 
+// Crea un endpoint para obtener los datos
+app.get('/get-data1', (req, res) => {
+  const query = 'SELECT * FROM insumo';
+  db.query(query, (err, results) => {
+    if (err) {  
+      console.error(err);
+      res.status(500).send({ message: 'Error al obtener datos' });
+      console.log(req.query);
+    } else {
+      res.send(results);
+      
+    }
+  });
+});
+
 // ----    ROUTING ---------     //
 app.get('/crud-producto' ,(req,res) =>{
   res.sendFile(path.join(__dirname, '../Cruds/CrudProductos.html'));
 });
 
-app.get('/crud-insumos',(req, res)=>{
+app.get('/crud-insumo',(req, res)=>{
   res.sendFile(path.join(__dirname, '../Cruds/CrudInsumos.html'));
 });
 //app.get('/')
