@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true })); // Middleware para parsear los datos del formulario
 
 // Configura el directorio estático para servir archivos (como imágenes)
-app.use(express.static(path.join(__dirname, 'jabys')));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Crea una conexión a la base de datos
 let db = mysql.createConnection({
@@ -69,7 +69,10 @@ app.get('/crud-producto' ,(req,res) =>{
 app.get('/crud-insumo',(req, res)=>{
   res.sendFile(path.join(__dirname, '../Cruds/CrudInsumos.html'));
 });
-//app.get('/')
+
+app.get('/registro',(req, res)=>{
+  res.sendFile(path.join(__dirname, '../auth/registro.html'));
+});
 // ----    ROUTING ---------     //
 
 // --------------------- CRUD PRODUCTOS --------------------- //
@@ -97,6 +100,29 @@ app.post('/insert', (req, res) => {
   });
 });
 // --------------------- CRUD PRODUCTOS --------------------- //
+
+// --------------------- Registro --------------------- //
+
+app.post('/register', (req, res) => {
+  const nombre = req.body.nombre;
+  const apellidop = req.body.apellidop;
+  const apellidom = req.body.apellidom;
+  const mail = req.body.correo;
+  const telefono = req.body.telefono;
+  const direccion = req.body.direccion;
+
+  const query = `INSERT into cliente (nombre, apellido_p, apellido_m, correo, telefono, direccion) VALUES ('${nombre}','${apellidop}','${apellidom}','${mail}','${telefono}','${direccion}')`;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send({ message: 'Error al insertar datos' });
+    } else {
+      res.send({ message: 'Datos insertados con éxito' });
+    }
+  });
+});
+
 
 
 
