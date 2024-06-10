@@ -105,13 +105,14 @@ app.post('/insert', (req, res) => {
 
 app.post('/register', (req, res) => {
   const nombre = req.body.nombre;
+  const contrasena = req.body.contrasena
   const apellidop = req.body.apellidop;
   const apellidom = req.body.apellidom;
   const mail = req.body.correo;
   const telefono = req.body.telefono;
   const direccion = req.body.direccion;
 
-  const query = `INSERT into cliente (nombre, apellido_p, apellido_m, correo, telefono, direccion) VALUES ('${nombre}','${apellidop}','${apellidom}','${mail}','${telefono}','${direccion}')`;
+  const query = `INSERT into cliente (nombre, contrasena, apellido_p, apellido_m, correo, telefono, direccion) VALUES ('${nombre}','${contrasena}','${apellidop}','${apellidom}','${mail}','${telefono}','${direccion}')`;
 
   db.query(query, (err, results) => {
     if (err) {
@@ -122,6 +123,45 @@ app.post('/register', (req, res) => {
     }
   });
 });
+ 
+// Cosas Regisstro 
+// document.getElementById('registerForm').addEventListener('submit', function(event) {
+//   event.preventDefault();
+
+//   const nombre = document.getElementById('nombre').value;
+//   const apellidop = document.getElementById('apellidop').value;
+//   const apellidom = document.getElementById('apellidom').value;
+//   const correo = document.getElementById('correo').value;
+//   const telefono = document.getElementById('telefono').value;
+//   const direccion = document.getElementById('direccion').value;
+//   const errorMessage = document.getElementById('errorMessage');
+
+//   // Limpiar el mensaje de error
+//   errorMessage.textContent = '';
+
+//   // Validaciones (opcional)
+//   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+//   if (!emailPattern.test(correo)) {
+//       errorMessage.textContent = 'El correo electrónico no es válido.';
+//       return;
+//   }
+
+//   // Enviar los datos al servidor
+//   fetch('/register', {
+//       method: 'POST',
+//       headers: {
+//           'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify({ nombre, apellidop, apellidom, correo, telefono, direccion })
+//   })
+//   .then(response => response.json())
+//   .then(data => {
+//       errorMessage.textContent = data.message;
+//   })
+//   .catch(error => {
+//       errorMessage.textContent = 'Error al enviar los datos';
+//   });
+// });
 
 
 
