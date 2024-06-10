@@ -66,6 +66,10 @@ app.get('/crud-producto' ,(req,res) =>{
   res.sendFile(path.join(__dirname, '../Cruds/CrudProductos.html'));
 });
 
+app.get('/' ,(req,res) =>{
+  res.sendFile(path.join(__dirname, '../index.html'));
+});
+
 app.get('/crud-insumo',(req, res)=>{
   res.sendFile(path.join(__dirname, '../Cruds/CrudInsumos.html'));
 });
