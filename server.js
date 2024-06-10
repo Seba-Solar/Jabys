@@ -61,23 +61,26 @@ app.get('/get-data1', (req, res) => {
   });
 });
 
-// ----    ROUTING ---------     //
+// --------    ROUTING ---------     //
 app.get('/crud-producto' ,(req,res) =>{
-  res.sendFile(path.join(__dirname, '../Cruds/CrudProductos.html'));
+  res.sendFile(path.join(__dirname, 'views/Cruds/CrudProductos.html'));
 });
 
 app.get('/' ,(req,res) =>{
-  res.sendFile(path.join(__dirname, '../index.html'));
+  res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
 app.get('/crud-insumo',(req, res)=>{
-  res.sendFile(path.join(__dirname, '../Cruds/CrudInsumos.html'));
+  res.sendFile(path.join(__dirname, 'views/Cruds/CrudInsumos.html'));
 });
 
 app.get('/registro',(req, res)=>{
-  res.sendFile(path.join(__dirname, '../auth/registro.html'));
+  res.sendFile(path.join(__dirname, 'views/auth/registro.html'));
 });
-// ----    ROUTING ---------     //
+app.get('/administrador-view',(req,res)=>{
+  res.sendFile(path.join(__dirname, 'views/administrador-view.html'));
+});
+// --------    ROUTING ---------     //
 
 // --------------------- CRUD PRODUCTOS --------------------- //
 app.post('/insert', (req, res) => {
@@ -91,8 +94,6 @@ app.post('/insert', (req, res) => {
   const largo = req.body.length;
 
   const query = `INSERT INTO producto (nombre, precio, cantidad, descripcion, alto, ancho, largo) VALUES ('${nombre}','${precio}', '${cantidad}', '${descripcion}', '${alto}','${ancho}','${largo}')`;
-
-
 
   db.query(query, (err, results) => {
     if (err) {
@@ -128,7 +129,7 @@ app.post('/register', (req, res) => {
   });
 });
  
-// Cosas Regisstro 
+// Cosas Registro 
 // document.getElementById('registerForm').addEventListener('submit', function(event) {
 //   event.preventDefault();
 
@@ -166,11 +167,6 @@ app.post('/register', (req, res) => {
 //       errorMessage.textContent = 'Error al enviar los datos';
 //   });
 // });
-
-
-
-
-
 // --------------------- CRUD INSUMOS --------------------- //
 
 app.post('/insert-insumos',(req,res)=>{
