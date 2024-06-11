@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: true })); // Middleware para parsear los 
 
 // Configura el directorio estático para servir archivos (como imágenes)
 app.use(express.static(path.join(__dirname, 'public')));
+app.use
 
 // Crea una conexión a la base de datos
 let db = mysql.createConnection({

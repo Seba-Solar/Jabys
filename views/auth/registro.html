@@ -140,10 +140,13 @@
     })
     .then(response => response.json())
     .then(data => {
-        errorMessage.textContent = data.message;
+        errorMessage.textContent = 'Registro Correcto';
+        setTimeout(() => {
+                window.location.href = '/';
+                }, 2000);
     })
     .catch(error => {
-        errorMessage.textContent = 'Error al enviar los datos';
+        errorMessage.textContent = 'Algo falló, intenta nuevamente';
     });
 });
         </script>
