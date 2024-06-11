@@ -80,6 +80,12 @@ app.get('/registro',(req, res)=>{
 app.get('/administrador-view',(req,res)=>{
   res.sendFile(path.join(__dirname, 'views/administrador-view.html'));
 });
+app.get('/detalle_compra',(req,res) =>{
+  res.sendFile(path.join(__dirname,'views/carrito/detalle_compra.html'));
+});
+app.get('/',()=>{
+
+});
 // --------    ROUTING ---------     //
 
 // --------------------- CRUD PRODUCTOS --------------------- //
