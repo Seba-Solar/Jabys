@@ -66,7 +66,15 @@ app.get('/get-data1', (req, res) => {
 app.get('/crud-producto' ,(req,res) =>{
   res.sendFile(path.join(__dirname, 'views/Cruds/CrudProductos.html'));
 });
-
+app.get('/crud-proveedor',(req,res)=>{
+  res.sendFile
+})
+app.get('/crud-repuesto',(req,res)=>{
+  res.sendFile(path.join(__dirname,'/views/Cruds/CrudRepuestos.html'));
+});
+app.get('/solicitud',(req,res)=>{
+  res.sendFile(path.join(__dirname,'views/Solicitudes.html'))
+})
 app.get('/' ,(req,res) =>{
   res.sendFile(path.join(__dirname, 'views/index.html'));
 });
@@ -87,7 +95,7 @@ app.get('/detalle_compra',(req,res) =>{
 app.get('/carrito2',(req,res)=>{
   res.sendFile(path.join(__dirname,'views/carrito/carrito2.html'));
 });
-app.get('/login',(req,res)=>{
+app.get('/logins',(req,res)=>{
   res.sendFile(path.join(__dirname, '/views/auth/login.html'));
 });
 app.get('/formulario-carrito',(req,res)=>{
@@ -190,6 +198,27 @@ app.post('/insert-insumos',(req,res)=>{
 });
 
 // --------------------- CRUD INSUMOS --------------------- //
+
+// -------------------- CRUD RESPUESTOS ---------------- //
+app.post('/insert-repuesto', (req, res) => {
+
+  const nombre = req.body.name;
+  const precio = req.body.price;
+  const cantidad = req.body.quantity;
+  const descripcion = req.body.description;
+
+  const query = `INSERT INTO repuesto (nombre, precio, cantidad, descripcion) VALUES ('${nombre}','${precio}', '${cantidad}', '${descripcion}')`;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send({ message: 'Error al insertar datos' });
+    } else {
+      res.send({ message: 'Datos insertados con éxito' });
+    }
+  });
+});
+// -------------------- CRUD RESPUESTOS ---------------- //
 // Inicia el servidor
 app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);
