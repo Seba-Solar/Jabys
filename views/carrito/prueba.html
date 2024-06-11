@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Carrito de Compras</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/public/css/prueba.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-default">
+
+    <img class="img-logo" src="/imagenes/capi.png" alt="Capibara Muebles de Diseño"> 
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Capibara Muebles</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Productos</a></li>
+                <li><a href="#">Contacto</a></li>
+                <li class="dropdown"> 
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Carrito <span class="caret"></span></a>
+
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Producto 1</a></li>
+                        <li><a href="#">Producto 2</a></li>
+                        <li><a href="#">Producto 3</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Formulario Usuario Registrado / Usuario Invitado -->
+<div class="container form-container">
+    <img src="/imagenes/user logo.png" alt="Logo usuario">
+    <h4 class="text-center">Seleccione el tipo de cuenta </h4>
+    
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#login" aria-controls="login" role="tab" data-toggle="tab">Usuario Registrado</a></li>
+        <li role="presentation"><a href="#guest" aria-controls="guest" role="tab" data-toggle="tab">Usuario Invitado</a></li>
+    </ul>
+    <div class="tab-content">
+        <!-- Login Tab -->
+        <div role="tabpanel" class="tab-pane active" id="login">
+            <form id="loginForm">
+                <div class="form-group">
+                    
+                    <label for="loginEmail">Nombre de Usuario:</label>
+                    <input type="email" class="form-control" id="loginEmail" placeholder="Nombre de usuario" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginEmail">Correo Electrónico:</label>
+                    <input type="email" class="form-control" id="loginEmail" placeholder="Correo Electrónico" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Contraseña:</label>
+                    <input type="password" class="form-control" id="loginPassword" placeholder="Contraseña" required>
+                </div>
+                
+                <button type="submit" class="boton_usuario_registrado" ><a href="Carrito.html">Continuar</a></button>
+                <p>¿No tienes una cuenta? haz click <a href="Formulario-carrito.html">aqui</a></p>
+            </form>
+        </div>
+        <!-- Guest Tab -->
+        <div role="tabpanel" class="tab-pane" id="guest">
+            <form id="guestForm">
+                <div class="form-group">
+                    <label for="guestEmail">Correo Electrónico:</label>
+                    <input type="email" class="form-control" id="guestEmail" placeholder="Correo@correo.cl" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="guestEmail">Télefono:</label>
+                    <input type="email" class="form-control" id="guestEmail" placeholder="Télefono" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="guestEmail">Calle:</label>
+                    <input type="email" class="form-control" id="guestEmail" placeholder="Calle" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="guestEmail">Número:</label>
+                    <input type="email" class="form-control" id="guestEmail" placeholder="Número" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Continuar como Invitado</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>

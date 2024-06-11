@@ -1,0 +1,82 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #e6e2d3; /* Color de fondo inspirado en un capibara */
+}
+
+.navbar {
+    background-color: #a58b65; /* Color marrón claro inspirado en un capibara */
+    border-color: #8b7d6b; /* Color marrón oscuro inspirado en un capibara */
+}
+
+.navbar-brand, .navbar-nav > li > a {
+    color: #fff !important;
+}
+
+.navbar-nav > .active > a, 
+.navbar-nav > .active > a:focus, 
+.navbar-nav > .active > a:hover {
+    color: #a15e5e !important;
+    background-color: #8b7d6b !important;
+}
+
+.dropdown-menu {
+    background-color: #fffbfb;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-menu > li > a {
+    color: #333;
+}
+
+.form-container {
+    margin: 50px auto;
+    max-width: 500px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    
+}
+
+.modal-header, .btn-primary {
+    background-color: #006eff;
+    border-color: #8b7d6b;
+}
+
+.modal-title, .btn-primary, .nav-tabs > li > a {
+    color: #ffffff;
+    background-color: #8b7d6b ;
+}
+
+.boton_usuario_registrado a{
+    background-color: #8b7d6b ;
+    color: #fff;
+
+}
+
+/* .form-container a{
+    background-color: #000000;
+} */
+
+.form-group label {
+    color: #333;
+}
+
+.img-logo{
+    width: 160px;
+    height: 80px;
+    display: flex;
+    position: static;
+}
+ .form-container img{
+    width: 80px;
+    height: 40px;
+    display: flex;
+    position: static;
+    margin: auto; 
+ }

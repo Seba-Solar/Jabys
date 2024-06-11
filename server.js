@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: true })); // Middleware para parsear los 
 
 // Configura el directorio estático para servir archivos (como imágenes)
 app.use(express.static(path.join(__dirname, 'public')));
+app.use
 
 // Crea una conexión a la base de datos
 let db = mysql.createConnection({
@@ -61,25 +62,52 @@ app.get('/get-data1', (req, res) => {
   });
 });
 
-// ----    ROUTING ---------     //
+// --------    ROUTING ---------     //
 app.get('/crud-producto' ,(req,res) =>{
-  res.sendFile(path.join(__dirname, '../Cruds/CrudProductos.html'));
+  res.sendFile(path.join(__dirname, 'views/Cruds/CrudProductos.html'));
 });
-
+app.get('/crud-proveedor',(req,res)=>{
+  res.sendFile
+})
+app.get('/crud-repuesto',(req,res)=>{
+  res.sendFile(path.join(__dirname,'/views/Cruds/CrudRepuestos.html'));
+});
+app.get('/solicitud',(req,res)=>{
+  res.sendFile(path.join(__dirname,'views/Solicitudes.html'))
+})
 app.get('/' ,(req,res) =>{
-  res.sendFile(path.join(__dirname, '../index.html'));
+  res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
 app.get('/crud-insumo',(req, res)=>{
-  res.sendFile(path.join(__dirname, '../Cruds/CrudInsumos.html'));
+  res.sendFile(path.join(__dirname, 'views/Cruds/CrudInsumos.html'));
 });
 
 app.get('/registro',(req, res)=>{
-  res.sendFile(path.join(__dirname, '../auth/registro.html'));
+  res.sendFile(path.join(__dirname, 'views/auth/registro.html'));
 });
-// ----    ROUTING ---------     //
+app.get('/administrador-view',(req,res)=>{
+  res.sendFile(path.join(__dirname, 'views/administrador-view.html'));
+});
+app.get('/detalle_compra',(req,res) =>{
+  res.sendFile(path.join(__dirname,'views/carrito/detalle_compra.html'));
+});
+app.get('/carrito2',(req,res)=>{
+  res.sendFile(path.join(__dirname,'views/carrito/carrito2.html'));
+});
+app.get('/logins',(req,res)=>{
+  res.sendFile(path.join(__dirname, '/views/auth/login.html'));
+});
+app.get('/formulario-carrito',(req,res)=>{
+  res.sendFile(path.join(__dirname,'/views/carrito/formulario-carrito.html'))
+});
+app.get('/prueba',(req,res)=>{
+  res.sendFile(path.join(__dirname,'/views/carrito/prueba.html'));
+});
+// --------    ROUTING ---------     //
 
 // --------------------- CRUD PRODUCTOS --------------------- //
+
 app.post('/insert', (req, res) => {
 
   const nombre = req.body.name;
@@ -91,8 +119,6 @@ app.post('/insert', (req, res) => {
   const largo = req.body.length;
 
   const query = `INSERT INTO producto (nombre, precio, cantidad, descripcion, alto, ancho, largo) VALUES ('${nombre}','${precio}', '${cantidad}', '${descripcion}', '${alto}','${ancho}','${largo}')`;
-
-
 
   db.query(query, (err, results) => {
     if (err) {
@@ -127,48 +153,27 @@ app.post('/register', (req, res) => {
     }
   });
 });
- 
-// Cosas Regisstro 
-// document.getElementById('registerForm').addEventListener('submit', function(event) {
-//   event.preventDefault();
 
-//   const nombre = document.getElementById('nombre').value;
-//   const apellidop = document.getElementById('apellidop').value;
-//   const apellidom = document.getElementById('apellidom').value;
-//   const correo = document.getElementById('correo').value;
-//   const telefono = document.getElementById('telefono').value;
-//   const direccion = document.getElementById('direccion').value;
-//   const errorMessage = document.getElementById('errorMessage');
+// autenticacion login
+app.post('/logins', (req, res) => {
+  const { nombre, contrasena } = req.body;
+  console.log('Datos recibidos:', { nombre, contrasena }); // Log para verificar datos recibidos
 
-//   // Limpiar el mensaje de error
-//   errorMessage.textContent = '';
+  const query = 'SELECT * FROM cliente WHERE nombre = ? AND contrasena = ?';
 
-//   // Validaciones (opcional)
-//   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-//   if (!emailPattern.test(correo)) {
-//       errorMessage.textContent = 'El correo electrónico no es válido.';
-//       return;
-//   }
-
-//   // Enviar los datos al servidor
-//   fetch('/register', {
-//       method: 'POST',
-//       headers: {
-//           'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify({ nombre, apellidop, apellidom, correo, telefono, direccion })
-//   })
-//   .then(response => response.json())
-//   .then(data => {
-//       errorMessage.textContent = data.message;
-//   })
-//   .catch(error => {
-//       errorMessage.textContent = 'Error al enviar los datos';
-//   });
-// });
-
-
-
+  db.query(query, [nombre, contrasena], (err, results) => {
+      if (err) {
+          console.error('Error en la consulta:', err); // Log para verificar errores en la consulta
+          res.status(500).json({ success: false, message: 'Error en el servidor' });
+      } else if (results.length > 0) {
+          console.log('Usuario autenticado con éxito:', results[0]); // Log para verificar autenticación exitosa
+          res.json({ success: true, message: 'Inicio de sesión exitoso' });
+      } else {
+          console.log('Usuario o contraseña incorrectos'); // Log para verificar fallo en autenticación
+          res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos' });
+      }
+  });
+});
 
 
 // --------------------- CRUD INSUMOS --------------------- //
@@ -193,6 +198,27 @@ app.post('/insert-insumos',(req,res)=>{
 });
 
 // --------------------- CRUD INSUMOS --------------------- //
+
+// -------------------- CRUD RESPUESTOS ---------------- //
+app.post('/insert-repuesto', (req, res) => {
+
+  const nombre = req.body.name;
+  const precio = req.body.price;
+  const cantidad = req.body.quantity;
+  const descripcion = req.body.description;
+
+  const query = `INSERT INTO repuesto (nombre, precio, cantidad, descripcion) VALUES ('${nombre}','${precio}', '${cantidad}', '${descripcion}')`;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send({ message: 'Error al insertar datos' });
+    } else {
+      res.send({ message: 'Datos insertados con éxito' });
+    }
+  });
+});
+// -------------------- CRUD RESPUESTOS ---------------- //
 // Inicia el servidor
 app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);
