@@ -104,8 +104,12 @@ button:hover {
       .then(response => response.json())
       .then(data => {
         if (data.success) {
-          // Display a success message instead of redirecting
-          errorMessage.textContent = 'Login successful! You are now logged in.';
+            // Mensaje de Login Correcto        
+          errorMessage.textContent = 'Inicio de Sesion correcto';   
+            // Redireccionar despues de logearse
+            setTimeout(() => {
+                window.location.href = '/';
+                }, 2000);
         } else {
           throw new Error(data.message);
         }
