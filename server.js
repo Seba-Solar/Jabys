@@ -87,6 +87,7 @@ app.get('/logins',(req,res)=>{
 // --------    ROUTING ---------     //
 
 // --------------------- CRUD PRODUCTOS --------------------- //
+
 app.post('/insert', (req, res) => {
 
   const nombre = req.body.name;
