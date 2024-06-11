@@ -84,11 +84,17 @@ app.get('/administrador-view',(req,res)=>{
 app.get('/detalle_compra',(req,res) =>{
   res.sendFile(path.join(__dirname,'views/carrito/detalle_compra.html'));
 });
-app.get('/',()=>{
-
+app.get('/carrito2',(req,res)=>{
+  res.sendFile(path.join(__dirname,'views/carrito/carrito2.html'));
 });
 app.get('/logins',(req,res)=>{
   res.sendFile(path.join(__dirname, '/views/auth/login.html'));
+});
+app.get('/formulario-carrito',(req,res)=>{
+  res.sendFile(path.join(__dirname,'/views/carrito/formulario-carrito.html'))
+});
+app.get('/prueba',(req,res)=>{
+  res.sendFile(path.join(__dirname,'/views/carrito/prueba.html'));
 });
 // --------    ROUTING ---------     //
 

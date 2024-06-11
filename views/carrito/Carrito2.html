@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Capibara</title>
+    <link rel="stylesheet" href="/public/css/Carrito2.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <nav>
+        <h1>Capibara Muebles</h1>
+        <div class="logo-capibara"><img src="/imagenes/capi.png" alt="logo-capibara"></div>
+        <ul>
+            <li><a href="detalle_compra.html">detalle compra</a></li>
+            <li><a href="#">Productos</a></li>
+            <li><a href="#">Contacto</a></li>
+            <li class="cart">
+                Carrito
+                <div class="cart-dropdown">
+                    <ul>
+                        <li>
+                            <span>Producto 1</span>
+                            <span>$10</span>
+                        </li>
+                        <li>
+                            <span>Producto 2</span>
+                            <span>$20</span>
+                        </li>
+                        <li>
+                            <span>Producto 3</span>
+                            <span>$30</span>
+                        </li>
+                    </ul>
+                    <div>Total: $60</div>
+                </div>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="form-container">
+        <form>
+            <table>
+                <thead>
+                    <tr>
+                        <th class="th-titulo">Imagen</th>
+                        <th class="th-titulo">Nombre del Producto</th>
+                        <th class="th-titulo">Cantidad</th>
+                        <th class="th-titulo">Precio</th>
+                        <th class="th-titulo">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="div-imagen"><div class="img-muebles"><img src="/img_muebles/mueble1.jpeg" alt="Producto"></div></td>
+                        <td class="div-producto">Producto 1</td>
+                        <td class="div-cantidad"><input class ="input"type="number" value="1" min="1" onchange="updateTotal(this)"></td>
+                        <td class="div-precio">$10</td>
+                        <td class="total">$10</td>
+                    </tr>
+                    <tr>
+                        <td class="div-imagen"><div class="img-muebles"><img src="/img_muebles/mueble2.jpg" alt="Producto"></div></td> 
+                        <td class="div-producto">Producto 2</td>
+                        <td class="div-cantidad"><input class ="input" type="number" value="1" min="1" onchange="updateTotal(this)"></td>
+                        <td class="div-precio">$20</td>
+                        <td class="total">$40</td>
+                    </tr>
+                </tbody>
+                <tfoot class="tfoot-total">
+                    <tr>
+                        <td class=grand-total id="grand-total">$50</td>
+                    </tr>
+                </tfoot>
+            </table>
+        </form>
+    </div>
+
+    <footer>
+        &copy; 2024 Tienda Capibara. Todos los derechos reservados.
+    </footer>
+
+    <script src="Carrito2.js"></script>
+</body>
+</html>

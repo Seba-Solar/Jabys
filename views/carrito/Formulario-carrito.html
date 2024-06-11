@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Carrito de Compras</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="prueba.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-default">
+
+    <img class="img-logo" src="/imagenes/capi.png" alt="Capibara Muebles de Diseño"> 
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Capibara Muebles</a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">Productos</a></li>
+                <li><a href="#">Contacto</a></li>
+                <li class="dropdown"> 
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Carrito <span class="caret"></span></a>
+
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Producto 1</a></li>
+                        <li><a href="#">Producto 2</a></li>
+                        <li><a href="#">Producto 3</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Formulario Usuario Registrado / Usuario Invitado -->
+<div class="container form-container">
+    <img src="/imagenes/user logo.png" alt="Logo usuario">
+    <h4 class="text-center">Crea una cuenta nueva</h4>
+    <div class="tab-content">
+        <!-- Login Tab -->
+        <div role="tabpanel" class="tab-pane active" id="login">
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Nombre de Usuario:</label>
+                    <input type="email" class="form-control" id="loginEmail" placeholder="Nombre de usuario" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginEmail">Nombre de Usuario:</label>
+                    <input type="email" class="form-control" id="loginEmail" placeholder="Nombre de usuario" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginEmail">Correo Electrónico:</label>
+                    <input type="email" class="form-control" id="loginEmail" placeholder="Correo Electrónico" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="loginPassword">Contraseña:</label>
+                    <input type="password" class="form-control" id="loginPassword" placeholder="Contraseña" required>
+                    <input type="checkbox" id="showPassword"> Mostrar Contraseña
+                    <div id="passwordFeedback" class="invalid-feedback">La contraseña debe tener al menos 8 caracteres, incluyendo una mayúscula, una minúscula, un número y un carácter especial.</div>
+                </div>
+                <button type="submit" class="btn btn-primary" onclick="validatePassword()">Enviar</button>
+            </div>
+        
+            <script>
+                document.getElementById('showPassword').addEventListener('change', function() {
+                    const passwordInput = document.getElementById('loginPassword');
+                    if (this.checked) {
+                        passwordInput.type = 'text';
+                    } else {
+                        passwordInput.type = 'password';
+                    }
+                });
+        
+                function validatePassword() {
+                    const passwordInput = document.getElementById('loginPassword');
+                    const passwordFeedback = document.getElementById('passwordFeedback');
+                    const pattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/;
+        
+                    if (pattern.test(passwordInput.value)) {
+                        passwordInput.classList.remove('is-invalid');
+                        passwordInput.classList.add('is-valid');
+                        passwordFeedback.style.display = 'none';
+                    } else {
+                        passwordInput.classList.remove('is-valid');
+                        passwordInput.classList.add('is-invalid');
+                        passwordFeedback.style.display = 'block';
+                    }
+                }
+            </script>
+
+                <!-- Campo de numero de telefono -->
+                <div class="form-group">
+                    <label for="guestPhone">Número Telefónico:</label>
+                    <input type="tel" class="form-control" id="guestPhone" placeholder="9 XXXX XXXX" required>
+                    <small>Formato: +56 9 1234 5678</small>
+                    <div id="phoneFeedback" class="invalid-feedback">Número telefónico inválido.</div>
+                </div>
+                <button type="submit" class="btn btn-primary" onclick="validatePhoneNumber()">Enviar</button>
+            </div>
+            <!-- validacion de datos de campo de numero de telefono -->
+            <script>
+                function validatePhoneNumber() {
+                    const phoneInput = document.getElementById('guestPhone');
+                    const phoneFeedback = document.getElementById('phoneFeedback');
+                    const pattern = /^\+56 9 \d{4} \d{4}$/;
+        
+                    if (pattern.test(phoneInput.value)) {
+                        phoneInput.classList.remove('is-invalid');
+                        phoneInput.classList.add('is-valid');
+                        phoneFeedback.style.display = 'none';
+                    } else {
+                        phoneInput.classList.remove('is-valid');
+                        phoneInput.classList.add('is-invalid');
+                        phoneFeedback.style.display = 'block';
+                    }
+                }
+            </script>
+
+                <button type="submit" class="boton_usuario_registrado" ><a href="Carrito.html">Continuar</a></button>
+                <p>¿No tienes una cuenta? haz click <a href="Formulario-carrito.html">aqui</a></p>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>
