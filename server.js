@@ -80,6 +80,9 @@ app.get('/registro',(req, res)=>{
 app.get('/administrador-view',(req,res)=>{
   res.sendFile(path.join(__dirname, 'views/administrador-view.html'));
 });
+app.get('/logins',(req,res)=>{
+  res.sendFile(path.join(__dirname, '/views/auth/login.html'));
+});
 // --------    ROUTING ---------     //
 
 // --------------------- CRUD PRODUCTOS --------------------- //
@@ -128,45 +131,29 @@ app.post('/register', (req, res) => {
     }
   });
 });
- 
-// Cosas Registro 
-// document.getElementById('registerForm').addEventListener('submit', function(event) {
-//   event.preventDefault();
 
-//   const nombre = document.getElementById('nombre').value;
-//   const apellidop = document.getElementById('apellidop').value;
-//   const apellidom = document.getElementById('apellidom').value;
-//   const correo = document.getElementById('correo').value;
-//   const telefono = document.getElementById('telefono').value;
-//   const direccion = document.getElementById('direccion').value;
-//   const errorMessage = document.getElementById('errorMessage');
+// autenticacion login
+app.post('/logins', (req, res) => {
+  const { nombre, contrasena } = req.body;
+  console.log('Datos recibidos:', { nombre, contrasena }); // Log para verificar datos recibidos
 
-//   // Limpiar el mensaje de error
-//   errorMessage.textContent = '';
+  const query = 'SELECT * FROM cliente WHERE nombre = ? AND contrasena = ?';
 
-//   // Validaciones (opcional)
-//   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-//   if (!emailPattern.test(correo)) {
-//       errorMessage.textContent = 'El correo electrónico no es válido.';
-//       return;
-//   }
+  db.query(query, [nombre, contrasena], (err, results) => {
+      if (err) {
+          console.error('Error en la consulta:', err); // Log para verificar errores en la consulta
+          res.status(500).json({ success: false, message: 'Error en el servidor' });
+      } else if (results.length > 0) {
+          console.log('Usuario autenticado con éxito:', results[0]); // Log para verificar autenticación exitosa
+          res.json({ success: true, message: 'Inicio de sesión exitoso' });
+      } else {
+          console.log('Usuario o contraseña incorrectos'); // Log para verificar fallo en autenticación
+          res.status(401).json({ success: false, message: 'Usuario o contraseña incorrectos' });
+      }
+  });
+});
 
-//   // Enviar los datos al servidor
-//   fetch('/register', {
-//       method: 'POST',
-//       headers: {
-//           'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify({ nombre, apellidop, apellidom, correo, telefono, direccion })
-//   })
-//   .then(response => response.json())
-//   .then(data => {
-//       errorMessage.textContent = data.message;
-//   })
-//   .catch(error => {
-//       errorMessage.textContent = 'Error al enviar los datos';
-//   });
-// });
+
 // --------------------- CRUD INSUMOS --------------------- //
 
 app.post('/insert-insumos',(req,res)=>{
