@@ -9,11 +9,10 @@ const port = 3000;
 app.use(bodyParser.json());
 
 //URL ENCODE PARA LOS PROGRAMAS QUE UTILIZAN FORMULARIOS. 
-app.use(express.urlencoded({ extended: true })); // Middleware para parsear los datos del formulario
+app.use(express.urlencoded({ extended: true }));
 
-// Configura el directorio estático para servir archivos (como imágenes)
+// Configura el directorio estático
 app.use(express.static(path.join(__dirname, 'public')));
-app.use
 
 // Crea una conexión a la base de datos
 let db = mysql.createConnection({
@@ -30,6 +29,11 @@ db.connect((err) => {
   } else {
     console.log('Conectado a la base de datos MySQL.');
   }
+});
+
+// Inicia el servidor
+app.listen(port, () => {
+  console.log(`Servidor escuchando en http://localhost:${port}`);
 });
 
 // Crea un endpoint para obtener los datos
@@ -74,11 +78,12 @@ app.get('/get-productos',(req,res)=>{
     }
   });
 });
+
 // --------    ROUTING ---------     //
 app.get('/crud-producto' ,(req,res) =>{
   res.sendFile(path.join(__dirname, 'views/Cruds/CrudProductos.html'));
 });
-app.get('/crud-proveedor',(req,res)=>{
+app.get('/crud-proveedores',(req,res)=>{
   res.sendFile(path.join(__dirname,'/views/Cruds/CrudProveedores.html'))
 })
 app.get('/crud-repuesto',(req,res)=>{
@@ -87,14 +92,15 @@ app.get('/crud-repuesto',(req,res)=>{
 app.get('/solicitud',(req,res)=>{
   res.sendFile(path.join(__dirname,'views/Solicitudes.html'))
 })
+app.get('/ventas',(req,res)=>{
+  res.sendFile(path.join(__dirname,'views/Ventas.html'))
+})
 app.get('/' ,(req,res) =>{
   res.sendFile(path.join(__dirname, 'views/index.html'));
 });
-
 app.get('/crud-insumo',(req, res)=>{
   res.sendFile(path.join(__dirname, 'views/Cruds/CrudInsumos.html'));
 });
-
 app.get('/registro',(req, res)=>{
   res.sendFile(path.join(__dirname, 'views/auth/registro.html'));
 });
@@ -144,7 +150,6 @@ app.post('/insert', (req, res) => {
 // --------------------- CRUD PRODUCTOS --------------------- //
 
 // --------------------- Registro --------------------- //
-
 app.post('/register', (req, res) => {
   const nombre = req.body.nombre;
   const contrasena = req.body.contrasena
@@ -165,6 +170,7 @@ app.post('/register', (req, res) => {
     }
   });
 });
+// --------------------- Registro --------------------- //
 
 // autenticacion login
 app.post('/logins', (req, res) => {
@@ -186,7 +192,7 @@ app.post('/logins', (req, res) => {
       }
   });
 });
-
+// autenticacion login
 
 // --------------------- CRUD INSUMOS --------------------- //
 
@@ -231,7 +237,3 @@ app.post('/insert-repuesto', (req, res) => {
   });
 });
 // -------------------- CRUD RESPUESTOS ---------------- //
-// Inicia el servidor
-app.listen(port, () => {
-  console.log(`Servidor escuchando en http://localhost:${port}`);
-});
