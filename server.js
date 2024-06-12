@@ -46,7 +46,6 @@ app.get('/get-data', (req, res) => {
     }
   });
 });
-
 // Crea un endpoint para obtener los datos
 app.get('/get-data1', (req, res) => {
   const query = 'SELECT * FROM insumo';
@@ -62,6 +61,19 @@ app.get('/get-data1', (req, res) => {
   });
 });
 
+//Creamos el endpoint para consumir todos los datos.
+app.get('/get-productos',(req,res)=>{
+  const query = 'SELECT nombre,precio,descripcion,cantidad,imagen from PRODUCTO';
+  db.query(query,(err,results)=>{
+    if(err){
+      console.error(err);
+      res.status(500).send({message: 'Error'});
+      console.log(req.query);
+    } else{
+      res.send(results);
+    }
+  });
+});
 // --------    ROUTING ---------     //
 app.get('/crud-producto' ,(req,res) =>{
   res.sendFile(path.join(__dirname, 'views/Cruds/CrudProductos.html'));
