@@ -50,6 +50,8 @@ app.get('/get-data', (req, res) => {
     }
   });
 });
+
+
 // Crea un endpoint para obtener los datos
 app.get('/get-data1', (req, res) => {
   const query = 'SELECT * FROM insumo';
@@ -149,7 +151,7 @@ app.post('/insert', (req, res) => {
 });
 // --------------------- CRUD PRODUCTOS --------------------- //
 
-// --------------------- Registro --------------------- //
+// --------------------- REGISTRO --------------------- //
 app.post('/register', (req, res) => {
   const nombre = req.body.nombre;
   const contrasena = req.body.contrasena
@@ -170,7 +172,7 @@ app.post('/register', (req, res) => {
     }
   });
 });
-// --------------------- Registro --------------------- //
+// --------------------- REGISTRO --------------------- //
 
 // autenticacion login
 app.post('/logins', (req, res) => {
@@ -218,12 +220,44 @@ app.post('/insert-insumos',(req,res)=>{
 // --------------------- CRUD INSUMOS --------------------- //
 
 // -------------------- CRUD RESPUESTOS ---------------- //
+// Crea un endpoint para obtener los datos
+app.get('/get-data2', (req, res) => {
+  const query = 'SELECT * FROM repuesto';
+  db.query(query, (err, results) => {
+    if (err) {  
+      console.error(err);
+      res.status(500).send({ message: 'Error al obtener datos' });
+      console.log(req.query);
+    } else {
+      res.send(results);
+      
+    }
+  });
+});
+
+app.delete('/delete/:repuestoId', (req, res) => {
+  const repuestoId = req.params.repuestoId;
+  
+  const query = `DELETE FROM repuesto WHERE id = ?`;
+
+  db.query(query, [repuestoId], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send({ message: 'Error al eliminar el repuesto' });
+    } else if (results.affectedRows === 0) {
+      res.status(404).send({ message: 'Repuesto no encontrado' });
+    } else {
+      res.send({ message: 'Repuesto eliminado con éxito' });
+    }
+  });
+});
+
 app.post('/insert-repuesto', (req, res) => {
 
-  const nombre = req.body.name;
-  const precio = req.body.price;
-  const cantidad = req.body.quantity;
-  const descripcion = req.body.description;
+  const nombre = req.body.repuestoName;
+  const precio = req.body.repuestoPrice;
+  const cantidad = req.body.repuestoQuantity;
+  const descripcion = req.body.repuestoDescription;
 
   const query = `INSERT INTO repuesto (nombre, precio, cantidad, descripcion) VALUES ('${nombre}','${precio}', '${cantidad}', '${descripcion}')`;
 
@@ -237,3 +271,36 @@ app.post('/insert-repuesto', (req, res) => {
   });
 });
 // -------------------- CRUD RESPUESTOS ---------------- //
+// --------------- CRUD PROVEEDOR -------------------- //
+app.get('/get-data3', (req, res) => {
+  const query = 'SELECT * FROM proveedor';
+  db.query(query, (err, results) => {
+    if (err) {  
+      console.error(err);
+      res.status(500).send({ message: 'Error al obtener datos' });
+      console.log(req.query);
+    } else {
+      res.send(results);
+      
+    }
+  });
+});
+app.post('/insert-proveedor', (req, res) => {
+
+  const nombre = req.body.proveedorNombre;
+  const rut = req.body.proveedorRut;
+  const materiales = req.body.proveedorMateriales;
+  const direccion = req.body.proveedorDireccion;
+
+  const query = `INSERT INTO proveedor (nombre, rut, materiales, direccion) VALUES ('${nombre}','${rut}', '${materiales}', '${direccion}')`;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send({ message: 'Error al insertar datos' });
+    } else {
+      res.send({ message: 'Datos insertados con éxito' });
+    }
+  });
+});
+// --------------- CRUD PROVEEDOR -------------------- //
