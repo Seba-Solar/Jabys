@@ -87,7 +87,7 @@ app.get('/detalle_compra',(req,res) =>{
 app.get('/carrito2',(req,res)=>{
   res.sendFile(path.join(__dirname,'views/carrito/carrito2.html'));
 });
-app.get('/login',(req,res)=>{
+app.get('/logins',(req,res)=>{
   res.sendFile(path.join(__dirname, '/views/auth/login.html'));
 });
 app.get('/formulario-carrito',(req,res)=>{
