@@ -52,25 +52,25 @@
         <!-- Aquí va el contenido principal -->
         <div class="container">
 
-            <h2>Gestion de Proveedores</h2>
+            <h2>Gestion de Repuestos</h2>
 
             <!-- Formulario para agregar un nuevo producto -->
-            <form action="/insert-proveedor" method="POST" id="addForm">
+            <form action="/insert-repuesto" method="POST" id="addForm">
                 <div class="form-group">
-                    <label for="productName">Nombre del Proveedor:</label>
-                    <input type="text" class="form-control" id="proveedorNombre" name="proveedorNombre">
+                    <label for="productName">Nombre del Repuesto:</label>
+                    <input type="text" class="form-control" id="repuestoName" name="repuestoName">
                 </div>
                 <div class="form-group">
-                    <label for="productPrice">Rut del proveedor:</label>
-                    <input type="text" class="form-control" id="proveedorRut" name="proveedorRut">
+                    <label for="productPrice">Precio:</label>
+                    <input type="text" class="form-control" id="repuestoPrice" name="repuestoPrice">
                 </div>
                 <div class="form-group">
-                    <label for="productQuantity">Materiales:</label>
-                    <input type="text" class="form-control" id="proveedorMateriales" name="proveedorMateriales">
+                    <label for="productQuantity">Cantidad:</label>
+                    <input type="text" class="form-control" id="repuestoQuantity" name="repuestoQuantity">
                 </div>
                 <div class="form-group">
-                    <label for="productDescription">Direccion:</label>
-                    <input type="text" class="form-control" id="proveedorDireccion" name="proveedorDireccion">
+                    <label for="productDescription">Descripción:</label>
+                    <input type="text" class="form-control" id="repuestoDescription" name="repuestoDescription">
                 </div>
                 <div class="form-group">
                 <button type="submit" class="btn btn-primary">Agregar Repuesto</button>
@@ -82,9 +82,9 @@
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Rut</th>
-                        <th>Materiales</th>
-                        <th>Direccion</th>
+                        <th>Precio</th>
+                        <th>Cantidad</th>
+                        <th>Descripción</th>
                     </tr>
                 </thead>
                 <tbody id="productTableBody">
@@ -92,14 +92,15 @@
                 </tbody>
             </table>
 
-            <!-- Agregar los enlaces a los archivos JS de Bootstrap y jQuery -->
+            
             <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
             <script>
-            function deleteProduct(proveedorId) {
+                // Función para eliminar un producto
+            function deleteProduct(repuestoId) {
                 if (confirm("¿Estás seguro de que deseas eliminar este producto?")) {
-                    fetch(`http://localhost:3000/delete/${proveedorId}`, {
+                    fetch(`http://localhost:3000/delete/${repuestoId}`, {
                         method: 'DELETE',
                         headers: {
                             'Content-Type': 'application/json'}
@@ -110,7 +111,7 @@
                             return response.json();
                         }).then(data => {
                             console.log(data.message);
-                            const row = document.querySelector(`button[data-id="${proveedorId}"]`).closest('tr');
+                            const row = document.querySelector(`button[data-id="${repuestoId}"]`).closest('tr');
                             row.remove();
                         })
                         .catch(error => {
@@ -120,7 +121,7 @@
                 }
 
                 document.addEventListener("DOMContentLoaded", function() {
-                    fetch('http://localhost:3000/get-data3', {
+                    fetch('http://localhost:3000/get-data2', {
                         method: 'GET',
                         headers: {
                             'Content-Type': 'application/json'
@@ -136,18 +137,18 @@
                             tableBody.innerHTML = '';
 
                             
-                            data.forEach(proveedor => {
+                            data.forEach(repuesto => {
                                 
                                 const row = document.createElement('tr');
 
                                 
                                 row.innerHTML = `
-                                    <td>${proveedor.id_proveedor}</td>
-                                    <td>${proveedor.nombre}</td>
-                                    <td>${proveedor.rut}</td>
-                                    <td>${proveedor.materiales}</td>
-                                    <td>${proveedor.direccion}</td>
-                                    <td><button class="btn btn-danger delete-btn" data-id="${proveedor.id_proveedor}">Eliminar</button></td>
+                                    <td>${repuesto.id_repuesto}</td>
+                                    <td>${repuesto.nombre}</td>
+                                    <td>${repuesto.precio}</td>
+                                    <td>${repuesto.cantidad}</td>
+                                    <td>${repuesto.descripcion}</td>
+                                    <td><button class="btn btn-danger delete-btn" data-id="${repuesto.id_repuesto}">Eliminar</button></td>
                                 `;
 
                                 // Agregar la fila al cuerpo de la tabla
@@ -157,8 +158,8 @@
                             // Agregar el manejador de eventos para los botones de eliminar
                             document.querySelectorAll('.delete-btn').forEach(button => {
                                 button.addEventListener('click', function() {
-                                    const proveedorId = this.getAttribute('data-id');
-                                    deleteProduct(proveedorId);
+                                    const repuestoId = this.getAttribute('data-id');
+                                    deleteProduct(repuestoId);
                                 });
                             });
                         } else {
@@ -169,8 +170,8 @@
                         console.error('Error al obtener los datos:', error);
                     });
                 });
+            </script>
 
-                    </script>
         </div>
     </div>
 

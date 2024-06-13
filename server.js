@@ -9,11 +9,10 @@ const port = 3000;
 app.use(bodyParser.json());
 
 //URL ENCODE PARA LOS PROGRAMAS QUE UTILIZAN FORMULARIOS. 
-app.use(express.urlencoded({ extended: true })); // Middleware para parsear los datos del formulario
+app.use(express.urlencoded({ extended: true }));
 
-// Configura el directorio estático para servir archivos (como imágenes)
+// Configura el directorio estático
 app.use(express.static(path.join(__dirname, 'public')));
-app.use
 
 // Crea una conexión a la base de datos
 let db = mysql.createConnection({
@@ -32,6 +31,11 @@ db.connect((err) => {
   }
 });
 
+// Inicia el servidor
+app.listen(port, () => {
+  console.log(`Servidor escuchando en http://localhost:${port}`);
+});
+
 // Crea un endpoint para obtener los datos
 app.get('/get-data', (req, res) => {
   const query = 'SELECT * FROM producto';
@@ -46,6 +50,7 @@ app.get('/get-data', (req, res) => {
     }
   });
 });
+
 
 // Crea un endpoint para obtener los datos
 app.get('/get-data1', (req, res) => {
@@ -62,19 +67,42 @@ app.get('/get-data1', (req, res) => {
   });
 });
 
+//Creamos el endpoint para consumir todos los datos.
+app.get('/get-productos',(req,res)=>{
+  const query = 'SELECT nombre,precio,descripcion,cantidad,imagen from PRODUCTO';
+  db.query(query,(err,results)=>{
+    if(err){
+      console.error(err);
+      res.status(500).send({message: 'Error'});
+      console.log(req.query);
+    } else{
+      res.send(results);
+    }
+  });
+});
+
 // --------    ROUTING ---------     //
 app.get('/crud-producto' ,(req,res) =>{
   res.sendFile(path.join(__dirname, 'views/Cruds/CrudProductos.html'));
 });
-
+app.get('/crud-proveedores',(req,res)=>{
+  res.sendFile(path.join(__dirname,'/views/Cruds/CrudProveedores.html'))
+})
+app.get('/crud-repuesto',(req,res)=>{
+  res.sendFile(path.join(__dirname,'/views/Cruds/CrudRepuestos.html'));
+});
+app.get('/solicitud',(req,res)=>{
+  res.sendFile(path.join(__dirname,'views/Solicitudes.html'))
+})
+app.get('/ventas',(req,res)=>{
+  res.sendFile(path.join(__dirname,'views/Ventas.html'))
+})
 app.get('/' ,(req,res) =>{
   res.sendFile(path.join(__dirname, 'views/index.html'));
 });
-
 app.get('/crud-insumo',(req, res)=>{
   res.sendFile(path.join(__dirname, 'views/Cruds/CrudInsumos.html'));
 });
-
 app.get('/registro',(req, res)=>{
   res.sendFile(path.join(__dirname, 'views/auth/registro.html'));
 });
@@ -123,8 +151,7 @@ app.post('/insert', (req, res) => {
 });
 // --------------------- CRUD PRODUCTOS --------------------- //
 
-// --------------------- Registro --------------------- //
-
+// --------------------- REGISTRO --------------------- //
 app.post('/register', (req, res) => {
   const nombre = req.body.nombre;
   const contrasena = req.body.contrasena
@@ -145,6 +172,7 @@ app.post('/register', (req, res) => {
     }
   });
 });
+// --------------------- REGISTRO --------------------- //
 
 // autenticacion login
 app.post('/logins', (req, res) => {
@@ -166,7 +194,7 @@ app.post('/logins', (req, res) => {
       }
   });
 });
-
+// autenticacion login
 
 // --------------------- CRUD INSUMOS --------------------- //
 
@@ -190,7 +218,89 @@ app.post('/insert-insumos',(req,res)=>{
 });
 
 // --------------------- CRUD INSUMOS --------------------- //
-// Inicia el servidor
-app.listen(port, () => {
-  console.log(`Servidor escuchando en http://localhost:${port}`);
+
+// -------------------- CRUD RESPUESTOS ---------------- //
+// Crea un endpoint para obtener los datos
+app.get('/get-data2', (req, res) => {
+  const query = 'SELECT * FROM repuesto';
+  db.query(query, (err, results) => {
+    if (err) {  
+      console.error(err);
+      res.status(500).send({ message: 'Error al obtener datos' });
+      console.log(req.query);
+    } else {
+      res.send(results);
+      
+    }
+  });
 });
+
+app.delete('/delete/:repuestoId', (req, res) => {
+  const repuestoId = req.params.repuestoId;
+  
+  const query = `DELETE FROM repuesto WHERE id = ?`;
+
+  db.query(query, [repuestoId], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send({ message: 'Error al eliminar el repuesto' });
+    } else if (results.affectedRows === 0) {
+      res.status(404).send({ message: 'Repuesto no encontrado' });
+    } else {
+      res.send({ message: 'Repuesto eliminado con éxito' });
+    }
+  });
+});
+
+app.post('/insert-repuesto', (req, res) => {
+
+  const nombre = req.body.repuestoName;
+  const precio = req.body.repuestoPrice;
+  const cantidad = req.body.repuestoQuantity;
+  const descripcion = req.body.repuestoDescription;
+
+  const query = `INSERT INTO repuesto (nombre, precio, cantidad, descripcion) VALUES ('${nombre}','${precio}', '${cantidad}', '${descripcion}')`;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send({ message: 'Error al insertar datos' });
+    } else {
+      res.send({ message: 'Datos insertados con éxito' });
+    }
+  });
+});
+// -------------------- CRUD RESPUESTOS ---------------- //
+// --------------- CRUD PROVEEDOR -------------------- //
+app.get('/get-data3', (req, res) => {
+  const query = 'SELECT * FROM proveedor';
+  db.query(query, (err, results) => {
+    if (err) {  
+      console.error(err);
+      res.status(500).send({ message: 'Error al obtener datos' });
+      console.log(req.query);
+    } else {
+      res.send(results);
+      
+    }
+  });
+});
+app.post('/insert-proveedor', (req, res) => {
+
+  const nombre = req.body.proveedorNombre;
+  const rut = req.body.proveedorRut;
+  const materiales = req.body.proveedorMateriales;
+  const direccion = req.body.proveedorDireccion;
+
+  const query = `INSERT INTO proveedor (nombre, rut, materiales, direccion) VALUES ('${nombre}','${rut}', '${materiales}', '${direccion}')`;
+
+  db.query(query, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send({ message: 'Error al insertar datos' });
+    } else {
+      res.send({ message: 'Datos insertados con éxito' });
+    }
+  });
+});
+// --------------- CRUD PROVEEDOR -------------------- //
