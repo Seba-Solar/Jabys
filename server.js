@@ -235,10 +235,10 @@ app.get('/get-data2', (req, res) => {
   });
 });
 
-app.delete('/delete/:repuestoId', (req, res) => {
-  const repuestoId = req.params.repuestoId;
-  
-  const query = `DELETE FROM repuesto WHERE id = ?`;
+app.delete('/delete-repuesto/:repuestoId', (req, res) => {
+  const repuestoId = Number(req.params.repuestoId); // Asegúrate de que el parámetro se convierta a número
+
+  const query = 'DELETE FROM repuesto WHERE id_repuesto = ?';
 
   db.query(query, [repuestoId], (err, results) => {
     if (err) {
@@ -251,6 +251,8 @@ app.delete('/delete/:repuestoId', (req, res) => {
     }
   });
 });
+
+
 
 app.post('/insert-repuesto', (req, res) => {
 
@@ -266,7 +268,7 @@ app.post('/insert-repuesto', (req, res) => {
       console.error(err);
       res.status(500).send({ message: 'Error al insertar datos' });
     } else {
-      res.send({ message: 'Datos insertados con éxito' });
+      res.redirect('/crud-repuesto');
     }
   });
 });
