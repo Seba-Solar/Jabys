@@ -197,7 +197,19 @@ app.post('/logins', (req, res) => {
 // autenticacion login
 
 // --------------------- CRUD INSUMOS --------------------- //
-
+app.get('/get-datainsumo', (req, res) => {
+  const query = 'SELECT * FROM insumo';
+  db.query(query, (err, results) => {
+    if (err) {  
+      console.error(err);
+      res.status(500).send({ message: 'Error al obtener datos' });
+      console.log(req.query);
+    } else {
+      res.send(results);
+      
+    }
+  });
+});
 app.post('/insert-insumos',(req,res)=>{
   const nombre = req.body.productName;
   const unidad_medida = req.body.productUnidadMedida;
@@ -212,10 +224,27 @@ app.post('/insert-insumos',(req,res)=>{
       console.error(err);
       res.status(500).send({ message: 'Error al insertar datos' });
     } else {
-      res.send({ message: 'Datos insertados con éxito' });
+      res.redirect('/crud-insumo');
     }
   });
 });
+app.delete('/delete-insumo/:insumoId', (req, res) => {
+  const insumoId = Number(req.params.insumoId); // Asegúrate de que el parámetro se convierta a número
+
+  const query = 'DELETE FROM insumo WHERE id_insumo = ?';
+
+  db.query(query, [insumoId], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send({ message: 'Error al eliminar el insumoo' });
+    } else if (results.affectedRows === 0) {
+      res.status(404).send({ message: 'Insumo no encontrado' });
+    } else {
+      res.send({ message: 'Insumo eliminado con éxito' });
+    }
+  });
+});
+
 
 // --------------------- CRUD INSUMOS --------------------- //
 
@@ -251,8 +280,6 @@ app.delete('/delete-repuesto/:repuestoId', (req, res) => {
     }
   });
 });
-
-
 
 app.post('/insert-repuesto', (req, res) => {
 
