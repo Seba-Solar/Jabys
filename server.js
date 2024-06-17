@@ -127,16 +127,32 @@ app.get('/prueba',(req,res)=>{
 // --------    ROUTING ---------     //
 
 // --------------------- CRUD PRODUCTOS --------------------- //
+app.delete('/delete-producto/:productoId', (req, res) => {
+  const productoId = Number(req.params.productoId);
+
+  const query = 'DELETE FROM producto WHERE id_producto = ?';
+
+  db.query(query, [productoId], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send({ message: 'Error al eliminar el producto' });
+    } else if (results.affectedRows === 0) {
+      res.status(404).send({ message: 'Producto no encontrado' });
+    } else {
+      res.send({ message: 'Producto eliminado con éxito' });
+    }
+  });
+});
 
 app.post('/insert', (req, res) => {
 
-  const nombre = req.body.name;
-  const precio = req.body.price;
-  const cantidad = req.body.quantity;
-  const descripcion = req.body.description;
-  const alto = req.body.height;
-  const ancho = req.body.width;
-  const largo = req.body.length;
+  const nombre = req.body.productName;
+  const precio = req.body.productPrice;
+  const cantidad = req.body.productQuantity;
+  const descripcion = req.body.productDescription;
+  const alto = req.body.productHeight;
+  const ancho = req.body.productWidth;
+  const largo = req.body.productLength;
 
   const query = `INSERT INTO producto (nombre, precio, cantidad, descripcion, alto, ancho, largo) VALUES ('${nombre}','${precio}', '${cantidad}', '${descripcion}', '${alto}','${ancho}','${largo}')`;
 
@@ -145,7 +161,7 @@ app.post('/insert', (req, res) => {
       console.error(err);
       res.status(500).send({ message: 'Error al insertar datos' });
     } else {
-      res.send({ message: 'Datos insertados con éxito' });
+      res.redirect('/crud-producto');
     }
   });
 });
